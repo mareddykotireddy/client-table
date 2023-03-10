@@ -8,7 +8,7 @@ import MainLayout from "./Components/MainLayout";
 import Sku from "./Components/Sku";
 // import Products from "./Components/Products";
 import User from "./Components/User";
-import SelectClient from "./SelectClient";
+// import SelectClient from "./SelectClient";
 
 function App() {
   return (
@@ -18,7 +18,8 @@ function App() {
         <Route path='/clientSelect' element={<ClientSelect />} />
         <Route path="/admin" element={<MainLayout />} >
           <Route index element={<Dashboard />} />
-          <Route path='SelectClient' element={<SelectClient />} />
+          <Route path='SelectClient' element={<></>} />
+          {/* <Route path='SelectClient' element={<SelectClient />} /> */}
           
           <Route path='Sku' element={<Sku />} />
           <Route path='User' element={<User />} />

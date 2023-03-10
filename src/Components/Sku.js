@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Tag } from 'antd';
+import { Table, Tag, Spin } from 'antd';
 import axios from 'axios';
 import moment from 'moment';
 
@@ -12,7 +12,6 @@ const Sku = () => {
   useEffect(() => {
     const accessToken = localStorage.getItem('token');
     const baseUrl = `http://216.230.74.17:8013/api/Sku?clientId=${clientId}`;
-    console.log(clientId)
     setIsLoading(true);
 
     axios.get(baseUrl, {
@@ -40,15 +39,6 @@ const Sku = () => {
   };
 
   const columns = [
-    // {
-    //   title: 'skuid',
-    //   dataIndex: 'skuid',
-    //   key: '1',
-    //   // render: (record) => {
-    //   //   <p>{record?.skuid}</p>
-    //   // }
-    // },
-
     {
       title: 'sku1',
       dataIndex: 'sku1',
@@ -102,18 +92,17 @@ const Sku = () => {
     },
   ];
 
-  if (isLoading) {
-    return <div style={{ color: "white", backgroundColor: "blue", padding: "5px 15px 4px 18px" }}>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>{error}</div>;
-  }
-
   return (
     <div>
       <input type="text" value={clientId} onChange={(e) => handleClientIdChange(e.target.value)} />
-      <Table dataSource={skus} columns={columns} />
+      {isLoading ? (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
+          <Spin size="large" />
+        </div>
+      ) : (
+        <Table dataSource={skus} columns={columns} />
+      )}
+      {error && <div>{error}</div>}
     </div>
   );
 }
